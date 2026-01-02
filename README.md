@@ -29,6 +29,11 @@ All commands are run from the root of the project, from a terminal:
 | `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
 | `npm run astro -- --help` | Get help using the Astro CLI                     |
 
+## 今後の予定
+
+- [ ] OGPの自動生成
+- [ ] リファクタ
+
 ## refarence
 
 - テーマのtoggleについて以下のサイトを参考にさせていただきました🙇
