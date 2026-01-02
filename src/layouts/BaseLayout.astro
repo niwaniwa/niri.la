@@ -2,6 +2,8 @@
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import ThemeInitializer from "../components/ThemeInitializer.astro";
+import { ClientRouter } from "astro:transitions";
+import "../styles/global.css";
 
 interface Props {
   title: string;
@@ -20,12 +22,15 @@ const { title, description = "niri.la" } = Astro.props;
     <meta name="description" content={description} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
+    <ClientRouter transition:animate="slide" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"
+    />
   </head>
   <body class="bg-base-100 text-base-content">
-    <!-- ここにheader -->
     <Header />
     <slot />
-    <!-- ここにfooter -->
     <Footer />
   </body>
 </html>
