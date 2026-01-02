@@ -22,6 +22,8 @@ const posts = (await getCollection("works", ({ data }) => !data.draft)).sort(
             pubDate={post.data.pubDate}
             href={`/works/${post.id.replace(/\.md$/, "")}`}
             tags={post.data.tags}
+            emoji={post.data.emoji}
+            image={post.data.image}
           />
         ))
       }
