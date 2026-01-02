@@ -1,7 +1,7 @@
 ---
 title: "Tailwind CSS チートシート"
 description: "よく使うTailwind CSSクラスのまとめ"
-pubDate: 2025-01-02
+pubDate: 2025-01-01
 tags: ["Tailwind", "CSS"]
 emoji: "🎨"
 ---
