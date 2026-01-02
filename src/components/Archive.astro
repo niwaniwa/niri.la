@@ -47,7 +47,7 @@ const years = Object.keys(groupedByYear)
           </div>
 
           {/* 記事リスト */}
-          <div class="border-l-2 border-base-300 ml-[3px] pl-6 space-y-3">
+          <div class="border-l-2 border-base-300 ml-0.75 pl-6 space-y-3">
             {groupedByYear[year].map((work) => {
               const month = String(work.data.pubDate.getMonth() + 1).padStart(
                 2,

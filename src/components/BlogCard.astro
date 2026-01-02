@@ -15,7 +15,7 @@ const { title, description, pubDate, href, tags, emoji, image } = Astro.props;
 <article class="flex gap-4 p-4 rounded-lg hover:bg-base-200">
   {
     (image || emoji) && (
-      <div class="flex-shrink-0 w-16 h-16 flex items-center justify-center rounded-lg bg-base-200 overflow-hidden">
+      <div class="shrink-0 w-16 h-16 flex items-center justify-center rounded-lg bg-base-200 overflow-hidden">
         {image ? (
           <img src={image} alt="" class="w-full h-full object-cover" />
         ) : (
