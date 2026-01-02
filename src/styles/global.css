@@ -2,7 +2,8 @@
 @plugin "@tailwindcss/typography";
 
 @theme {
-  --font-kosugi: "Kosugi Maru", sans-serif;
+  --font-sans: "Zen Maru Gothic", sans-serif;
+  --default-font-family: var(--font-sans);
 
   --color-primary: var(--primary);
   --color-primary-content: var(--primary-content);
@@ -54,7 +55,6 @@
   }
 }
 
-/* proseのダークモード対応 */
 .prose {
   --tw-prose-body: var(--base-content);
   --tw-prose-headings: var(--base-content);
