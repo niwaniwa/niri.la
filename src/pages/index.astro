@@ -5,6 +5,7 @@ import CardSquare from "../components/CardSquare.astro";
 import { Icon } from "astro-icon/components";
 import { getCollection } from "astro:content";
 import ProfileSidebar from "../components/ProfileSidebar.astro";
+import { SITE, SOCIAL_LINKS } from "../config";
 
 const works = (await getCollection("works")).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
@@ -39,28 +40,22 @@ const displayBlogs = blogs.slice(0, 10);
               <p class="text-base-content/70">engineer, creator</p>
             </div>
             <ul class="flex gap-4">
-              <li>
-                <a
-                  href="https://github.com/niwaniwa"
-                  class="text-primary hover:text-primary/80"
-                >
-                  <Icon name="mdi:github" class="w-6 h-6" />
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://x.com/ni_rilana"
-                  class="text-primary hover:text-primary/80"
-                >
-                  <Icon name="mdi:twitter" class="w-6 h-6" />
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://misskey.niri.la/@ni_rilana"
-                  class="text-primary hover:text-primary/80">Misskey</a
-                >
-              </li>
+              {
+                SOCIAL_LINKS.map((link) => (
+                  <li>
+                    <a
+                      href={link.url}
+                      class="text-primary hover:text-primary/80"
+                    >
+                      {link.label ? (
+                        link.label
+                      ) : (
+                        <Icon name={`mdi:${link.id}`} class="w-6 h-6" />
+                      )}
+                    </a>
+                  </li>
+                ))
+              }
             </ul>
           </div>
         </section>
