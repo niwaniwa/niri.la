@@ -1,0 +1,43 @@
+---
+import { BLOG_PAGE_SIZE } from "../config";
+
+interface Props {
+  domain?: string;
+}
+
+const { domain = "niri.la" } = Astro.props;
+
+// MVV（Mission, Vision, Values）- 後で内容を変更
+const mvv = {
+  mission: "ここにMissionを書く",
+  vision: "ここにVisionを書く",
+  values: ["Value 1", "Value 2", "Value 3"],
+};
+---
+
+<aside class="w-full lg:w-80 flex-shrink-0">
+  <div class="sticky top-8 space-y-6">
+    <!-- プロフィール -->
+    <div class="text-center">
+      <p class="text-base-content/60">{domain}</p>
+    </div>
+
+    <!-- MVV -->
+    <div class="space-y-4">
+      <div>
+        <h2 class="font-semibold text-sm text-base-content/50">Mission</h2>
+        <p class="text-sm">{mvv.mission}</p>
+      </div>
+      <div>
+        <h2 class="font-semibold text-sm text-base-content/50">Vision</h2>
+        <p class="text-sm">{mvv.vision}</p>
+      </div>
+      <div>
+        <h2 class="font-semibold text-sm text-base-content/50">Values</h2>
+        <ul class="text-sm space-y-1">
+          {mvv.values.map((v) => <li>• {v}</li>)}
+        </ul>
+      </div>
+    </div>
+  </div>
+</aside>

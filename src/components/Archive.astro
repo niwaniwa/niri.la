@@ -1,0 +1,79 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  works: CollectionEntry<"works">[];
+  limit?: number;
+}
+
+const { works, limit } = Astro.props;
+const displayWorks = limit ? works.slice(0, limit) : works;
+
+const groupedByYear = displayWorks.reduce(
+  (acc, work) => {
+    const year = work.data.pubDate.getFullYear();
+    if (!acc[year]) acc[year] = [];
+    acc[year].push(work);
+    return acc;
+  },
+  {} as Record<number, CollectionEntry<"works">[]>,
+);
+
+// 年を降順でソート
+const years = Object.keys(groupedByYear)
+  .map(Number)
+  .sort((a, b) => b - a);
+---
+
+<section>
+  <div class="flex justify-between items-center mb-6">
+    <h2 class="text-2xl font-bold">Works</h2>
+    <a href="/works" class="text-primary text-sm hover:underline"
+      >すべて見る →</a
+    >
+  </div>
+
+  <div class="space-y-8">
+    {
+      years.map((year) => (
+        <div>
+          {/* 年ヘッダー */}
+          <div class="flex items-center gap-3 mb-4">
+            <span class="text-xl font-bold">{year}</span>
+            <div class="w-2 h-2 rounded-full bg-primary" />
+            <span class="text-sm text-base-content/50">
+              {groupedByYear[year].length} posts
+            </span>
+          </div>
+
+          {/* 記事リスト */}
+          <div class="border-l-2 border-base-300 ml-[3px] pl-6 space-y-3">
+            {groupedByYear[year].map((work) => {
+              const month = String(work.data.pubDate.getMonth() + 1).padStart(
+                2,
+                "0",
+              );
+              const day = String(work.data.pubDate.getDate()).padStart(2, "0");
+              return (
+                <a
+                  href={`/works/${work.id.replace(/\.md$/, "")}`}
+                  class="flex items-center gap-4 py-1 hover:text-primary transition-colors"
+                >
+                  <span class="text-sm text-base-content/50 w-12">
+                    {month}-{day}
+                  </span>
+                  <span class="font-medium flex-1">{work.data.title}</span>
+                  {work.data.tags && (
+                    <span class="text-xs text-base-content/40 hidden sm:block">
+                      {work.data.tags.map((tag) => `#${tag}`).join(" ")}
+                    </span>
+                  )}
+                </a>
+              );
+            })}
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</section>

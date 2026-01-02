@@ -10,6 +10,7 @@ interface Props {
   description?: string;
   image?: string;
   type?: "website" | "article";
+  hideHeader?: boolean;
 }
 
 const {
@@ -17,6 +18,7 @@ const {
   description = "niri.la",
   image = "/ogp.jpg",
   type = "website",
+  hideHeader = false,
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
@@ -52,7 +54,7 @@ const ogImageURL = new URL(image, Astro.site);
     />
   </head>
   <body class="bg-base-100 text-base-content">
-    <Header />
+    {!hideHeader && <Header />}
     <slot />
     <Footer />
   </body>
