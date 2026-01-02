@@ -7,7 +7,7 @@ import { Icon } from "astro-icon/components";
   <nav class="max-w-4xl mx-auto px-4 py-4 flex justify-between items-center">
     <a href="/" class="text-xl font-bold">niri.la</a>
 
-    <ul class="flex gap-6 items-center">
+    <ul class="hidden md:flex gap-6 items-center">
       <li><a class="hover:text-primary" href="/">about</a></li>
       <li><a class="hover:text-primary" href="/blogs">blogs</a></li>
       <li><a class="hover:text-primary" href="/works">works</a></li>
@@ -18,5 +18,34 @@ import { Icon } from "astro-icon/components";
       </li>
       <li><ThemeToggle /></li>
     </ul>
+
+    <button id="menu-toggle" class="md:hidden">
+      <Icon name="mdi:menu" class="w-6 h-6" />
+    </button>
   </nav>
+
+  <div id="mobile-menu" class="hidden md:hidden">
+    <ul class="px-4 py-4 space-y-4">
+      <li><a class="hover:text-primary" href="/">about</a></li>
+      <li><a class="hover:text-primary" href="/blogs">blogs</a></li>
+      <li><a class="hover:text-primary" href="/works">works</a></li>
+      <li>
+        <a href="/search" class="hover:text-primary flex items-center">
+          <Icon name="mdi:search" class="w-5 h-5" />
+        </a>
+      </li>
+      <li><ThemeToggle /></li>
+    </ul>
+  </div>
 </header>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const toggle = document.getElementById("menu-toggle");
+    const menu = document.getElementById("mobile-menu");
+
+    toggle?.addEventListener("click", () => {
+      menu?.classList.toggle("hidden");
+    });
+  });
+</script>
