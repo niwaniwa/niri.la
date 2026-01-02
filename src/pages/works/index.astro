@@ -2,11 +2,13 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import BlogCard from "../../components/BlogCard.astro";
 import { getCollection } from "astro:content";
+import { BLOG_PAGE_SIZE } from "../../config";
 
 // worksを取得。 日付を降順
 const posts = (await getCollection("works", ({ data }) => !data.draft)).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
+const displayPosts = posts.slice(0, BLOG_PAGE_SIZE);
 ---
 
 <BaseLayout title="Works | niri.la">
@@ -15,7 +17,7 @@ const posts = (await getCollection("works", ({ data }) => !data.draft)).sort(
 
     <ul class="space-y-6">
       {
-        posts.map((post) => (
+        displayPosts.map((post) => (
           <BlogCard
             title={post.data.title}
             description={post.data.description}
@@ -28,5 +30,14 @@ const posts = (await getCollection("works", ({ data }) => !data.draft)).sort(
         ))
       }
     </ul>
+    {
+      posts.length > BLOG_PAGE_SIZE && (
+        <nav class="flex justify-center mt-8">
+          <a href="/works/page/2" class="text-primary">
+            次 →
+          </a>
+        </nav>
+      )
+    }
   </main>
 </BaseLayout>
