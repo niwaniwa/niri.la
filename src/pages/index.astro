@@ -6,6 +6,7 @@ import { Icon } from "astro-icon/components";
 import { getCollection } from "astro:content";
 import ProfileSidebar from "../components/ProfileSidebar.astro";
 import { SITE, SOCIAL_LINKS } from "../config";
+import ParticleEffect from "../components/ParticleEffect.astro";
 
 const works = (await getCollection("works")).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
@@ -25,39 +26,43 @@ const displayBlogs = blogs.slice(0, 10);
 
       <div class="flex-1 space-y-16">
         <!-- プロフィールセクション -->
-        <section class="my-20 flex items-center justify-center">
-          <div class="flex flex-col items-center gap-4">
-            <!-- アイコン画像 -->
-            <img
-              src="/images/icon.png"
-              alt="アイコン"
-              class="w-50 h-50 rounded-full"
-            />
-            <!-- 名前と自己紹介 -->
-            <h1 class="text-4xl font-bold">nirila</h1>
-            <p>にりら</p>
-            <div>
-              <p class="text-base-content/70">engineer, creator</p>
+        <section
+          class="my-20 flex items-center justify-center particle-container relative"
+        >
+          <ParticleEffect>
+            <div class="flex flex-col items-center gap-4 relative z-1">
+              <!-- アイコン画像 -->
+              <img
+                src="/images/icon.png"
+                alt="アイコン"
+                class="w-50 h-50 rounded-full"
+              />
+              <!-- 名前と自己紹介 -->
+              <h1 class="text-4xl font-bold">nirila</h1>
+              <p>にりら</p>
+              <div>
+                <p class="text-base-content/70">engineer, creator</p>
+              </div>
+              <ul class="flex gap-4">
+                {
+                  SOCIAL_LINKS.map((link) => (
+                    <li>
+                      <a
+                        href={link.url}
+                        class="text-primary hover:text-primary/80"
+                      >
+                        {link.label ? (
+                          link.label
+                        ) : (
+                          <Icon name={`mdi:${link.id}`} class="w-6 h-6" />
+                        )}
+                      </a>
+                    </li>
+                  ))
+                }
+              </ul>
             </div>
-            <ul class="flex gap-4">
-              {
-                SOCIAL_LINKS.map((link) => (
-                  <li>
-                    <a
-                      href={link.url}
-                      class="text-primary hover:text-primary/80"
-                    >
-                      {link.label ? (
-                        link.label
-                      ) : (
-                        <Icon name={`mdi:${link.id}`} class="w-6 h-6" />
-                      )}
-                    </a>
-                  </li>
-                ))
-              }
-            </ul>
-          </div>
+          </ParticleEffect>
         </section>
         <Archive works={works} limit={5} />
 
