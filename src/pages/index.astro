@@ -1,5 +1,61 @@
 ---
-import '../styles/global.css'
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { Icon } from "astro-icon/components";
+import "../styles/global.css";
 ---
 
+<BaseLayout title="にりらだょ">
+  <main class="max-w-4xl mx-auto px-4 py-12">
+    <!-- プロフィールセクション -->
+    <section class="my-20 flex items-center justify-center">
+      <div class="flex flex-col items-center gap-4">
+        <!-- アイコン画像 -->
+        <img
+          src="/images/icon.png"
+          alt="アイコン"
+          class="w-50 h-50 rounded-full"
+        />
+        <!-- 名前と自己紹介 -->
+        <h1 class="text-4xl font-bold">nirila</h1>
+        <p>にりら</p>
+        <div>
+          <p class="text-base-content/70">engineer, creator</p>
+        </div>
+        <ul class="flex gap-4">
+          <li>
+            <a
+              href="https://github.com/niwaniwa"
+              class="text-primary hover:text-primary/80"
+            >
+              <Icon name="mdi:github" class="w-6 h-6" />
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://x.com/ni_rilana"
+              class="text-primary hover:text-primary/80"
+            >
+              <Icon name="mdi:twitter" class="w-6 h-6" />
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://misskey.niri.la/@ni_rilana"
+              class="text-primary hover:text-primary/80">Misskey</a
+            >
+          </li>
+        </ul>
+      </div>
+    </section>
 
+    <!-- works -->
+    <section class="flex items-center justify-center">
+      <h2 class="text-3xl font-bold">works</h2>
+    </section>
+
+    <!-- blogs -->
+    <section class="flex items-center justify-center">
+      <h2 class="text-3xl font-bold">blogs</h2>
+    </section>
+  </main>
+</BaseLayout>
