@@ -1,5 +1,6 @@
 ---
 import Prose from "../components/Prose.astro";
+import TOC from "../components/TOC.astro";
 import { render, type CollectionEntry } from "astro:content";
 
 interface Props {
@@ -7,11 +8,11 @@ interface Props {
 }
 
 const { post } = Astro.props;
-const { Content } = await render(post);
+const { Content, headings } = await render(post);
 const { title, pubDate, tags, emoji, image } = post.data;
 ---
 
-<article class="max-w-4xl mx-auto px-4 py-12">
+<article class="max-w-6xl mx-auto px-4 py-12">
   <header class="mb-8">
     {
       image && (
@@ -23,7 +24,7 @@ const { title, pubDate, tags, emoji, image } = post.data;
 
     {emoji && !image && <div class="text-6xl mb-4">{emoji}</div>}
 
-    <h1 class="text-3xl font-bold mb-2">{title}</h1>
+    <h1 class="text-5xl font-bold mb-2">{title}</h1>
 
     <div class="flex items-center gap-4 text-base-content/50">
       <time>{pubDate.toLocaleDateString("ja-JP")}</time>
@@ -46,8 +47,17 @@ const { title, pubDate, tags, emoji, image } = post.data;
       }
     </div>
   </header>
+  <div class="lg:flex lg:gap-8">
+    <div class="flex-1">
+      <Prose>
+        <Content />
+      </Prose>
+    </div>
 
-  <Prose>
-    <Content />
-  </Prose>
+    <aside class="hidden lg:block w-64 flex-shrink-0">
+      <div class="sticky top-8">
+        <TOC headings={headings} />
+      </div>
+    </aside>
+  </div>
 </article>

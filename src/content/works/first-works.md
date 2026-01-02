@@ -6,6 +6,6 @@ tags: ["astro", "blog"]
 draft: false
 ---
 
-# 概要だよ
+## 概要だよ
 
 お仕事した内容だょ

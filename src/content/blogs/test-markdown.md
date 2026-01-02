@@ -1,12 +1,11 @@
 ---
-title: "markdownテスト"
-description: "markdownテスト"
+title: "Markdown 表示テスト"
+description: "Markdown 表示テスト"
 pubDate: 2026-01-02
 tags: ["astro", "blog"]
 draft: false
+image: "https://media.niri.la/misskey/acbd03ac-25bc-46d0-b70c-3762266a835b.webp"
 ---
-
-# Markdown 表示テスト
 
 このファイルは **Markdown の主要な装飾要素** を確認するためのサンプルです。[^1]
 

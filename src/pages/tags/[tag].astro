@@ -41,6 +41,8 @@ const sortedPosts = posts.sort(
             pubDate={post.data.pubDate}
             href={`/blogs/${post.id.replace(/\.md$/, "")}`}
             tags={post.data.tags}
+            emoji={post.data.emoji}
+            image={post.data.image}
           />
         ))
       }
