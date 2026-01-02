@@ -4,9 +4,14 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
 <script src="/pagefind/pagefind-ui.js" is:inline></script>
 <script is:inline>
-  window.addEventListener("DOMContentLoaded", () => {
-    new PagefindUI({ element: "#search", showSubResults: true });
-  });
+  function initSearch() {
+    const el = document.getElementById("search");
+    if (el && !el.hasChildNodes()) {
+      new PagefindUI({ element: "#search", showSubResults: true });
+    }
+  }
+  document.addEventListener("DOMContentLoaded", initSearch);
+  document.addEventListener("astro:page-load", initSearch);
 </script>
 
 <link href="/pagefind/pagefind-ui.css" rel="stylesheet" />
