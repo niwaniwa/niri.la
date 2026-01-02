@@ -1,0 +1,31 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+// 全ブログ記事を取得
+const posts = await getCollection("blogs", ({ data }) => !data.draft);
+
+// 全タグを集めて重複を除去
+const allTags = [...new Set(posts.flatMap((post) => post.data.tags || []))];
+---
+
+<BaseLayout title="Tags | niri.la">
+  <main class="max-w-4xl mx-auto px-4 py-12">
+    <h1 class="text-3xl font-bold mb-8">Tags</h1>
+
+    <ul class="flex flex-wrap gap-3">
+      {
+        allTags.map((tag) => (
+          <li>
+            <a
+              href={`/tags/${tag}`}
+              class="px-4 py-2 bg-base-200 rounded-full hover:bg-primary hover:text-primary-content"
+            >
+              {tag}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </main>
+</BaseLayout>

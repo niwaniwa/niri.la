@@ -1,0 +1,70 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --font-sans: "Zen Maru Gothic", sans-serif;
+  --default-font-family: var(--font-sans);
+
+  --color-primary: var(--primary);
+  --color-primary-content: var(--primary-content);
+  --color-base-100: var(--base-100);
+  --color-base-200: var(--base-200);
+  --color-base-300: var(--base-300);
+  --color-base-content: var(--base-content);
+  /* ... */
+}
+
+@layer base {
+  /* ライトモード（デフォルト）のテーマ色 */
+  :root {
+    /* プライマリ: #FFB3C0ベース */
+    --primary: oklch(64.758% 0.22666 19.69);
+    --primary-content: oklch(0.25 0.05 12);
+
+    --base-100: oklch(0.98 0.01 12);
+    --base-200: oklch(0.95 0.015 12);
+    --base-300: oklch(0.9 0.02 12);
+    --base-content: oklch(0.3 0.03 12);
+  }
+
+  /* ダークモード時のテーマ色 */
+  .dark {
+    --primary: oklch(0.82 0.1 12);
+    --primary-content: oklch(0.2 0.03 12);
+
+    --base-100: oklch(0.2 0.02 12);
+    --base-200: oklch(0.25 0.025 12);
+    --base-300: oklch(0.32 0.03 12);
+    --base-content: oklch(0.92 0.02 12);
+  }
+
+  html {
+    transition:
+      background-color 0.3s ease,
+      color 0.3s ease;
+  }
+
+  body {
+    transition:
+      background-color 0.3s ease,
+      color 0.3s ease,
+      border-color 0.3s ease;
+  }
+}
+
+.prose {
+  --tw-prose-body: var(--base-content);
+  --tw-prose-headings: var(--base-content);
+  --tw-prose-links: var(--primary);
+  --tw-prose-bold: var(--base-content);
+  --tw-prose-code: var(--primary);
+  --tw-prose-pre-bg: var(--base-200);
+  --tw-prose-pre-code: var(--base-content);
+  --tw-prose-quotes: var(--base-content);
+  --tw-prose-quote-borders: var(--primary);
+  --tw-prose-counters: var(--base-content);
+  --tw-prose-bullets: var(--base-content);
+  --tw-prose-hr: var(--base-300);
+  --tw-prose-th-borders: var(--base-300);
+  --tw-prose-td-borders: var(--base-200);
+}

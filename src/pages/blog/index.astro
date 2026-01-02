@@ -1,0 +1,43 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import BlogCard from "../../components/BlogCard.astro";
+import { getCollection } from "astro:content";
+import { BLOG_PAGE_SIZE } from "../../config";
+
+// blogを取得。 日付を降順
+const posts = (await getCollection("blogs", ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+const displayPosts = posts.slice(0, BLOG_PAGE_SIZE);
+---
+
+<BaseLayout title="Blog | niri.la">
+  <main class="max-w-4xl mx-auto px-4 py-12">
+    <h1 class="text-3xl font-bold mb-8">Blog</h1>
+
+    <ul class="space-y-6">
+      {
+        displayPosts.map((post) => (
+          <BlogCard
+            title={post.data.title}
+            description={post.data.description}
+            pubDate={post.data.pubDate}
+            href={`/blog/${post.id.replace(/\.md$/, "")}`}
+            tags={post.data.tags}
+            emoji={post.data.emoji}
+            image={post.data.image}
+          />
+        ))
+      }
+    </ul>
+    {
+      posts.length > BLOG_PAGE_SIZE && (
+        <nav class="flex justify-center mt-8">
+          <a href="/blog/page/2" class="text-primary">
+            次 →
+          </a>
+        </nav>
+      )
+    }
+  </main>
+</BaseLayout>

@@ -1,0 +1,51 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import BlogCard from "../../components/BlogCard.astro";
+import { getCollection } from "astro:content";
+
+// 動的ルートのための関数
+export async function getStaticPaths() {
+  const posts = await getCollection("blogs", ({ data }) => !data.draft);
+
+  // 全タグを取得
+  const allTags = [...new Set(posts.flatMap((post) => post.data.tags || []))];
+
+  // 各タグに対してページを生成
+  return allTags.map((tag) => ({
+    params: { tag },
+    props: {
+      posts: posts.filter((post) => post.data.tags?.includes(tag)),
+    },
+  }));
+}
+
+const { tag } = Astro.params;
+const { posts } = Astro.props;
+
+// 日付順にソート
+const sortedPosts = posts.sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+---
+
+<BaseLayout title={`${tag} | niri.la`}>
+  <main class="max-w-4xl mx-auto px-4 py-12">
+    <h1 class="text-3xl font-bold mb-8">Tag: {tag}</h1>
+
+    <ul class="space-y-6">
+      {
+        sortedPosts.map((post) => (
+          <BlogCard
+            title={post.data.title}
+            description={post.data.description}
+            pubDate={post.data.pubDate}
+            href={`/blogs/${post.id.replace(/\.md$/, "")}`}
+            tags={post.data.tags}
+            emoji={post.data.emoji}
+            image={post.data.image}
+          />
+        ))
+      }
+    </ul>
+  </main>
+</BaseLayout>

@@ -1,16 +1,111 @@
 ---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Archive from "../components/Archive.astro";
+import CardSquare from "../components/CardSquare.astro";
+import { Icon } from "astro-icon/components";
+import { getCollection } from "astro:content";
+import ProfileSidebar from "../components/ProfileSidebar.astro";
+import { SITE, SOCIAL_LINKS } from "../config";
+import ParticleEffect from "../components/ParticleEffect.astro";
 
+const works = (await getCollection("works")).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+
+const blogs = (await getCollection("blogs", ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+
+const displayBlogs = blogs.slice(0, 10);
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout title="にりらだょ" hideHeader>
+  <main class="max-w-4xl mx-auto px-4 py-12">
+    <div class="lg:flex lg:gap-12">
+      <ProfileSidebar>
+        <div class="font-mono text-sm space-y-1">
+          <p>
+            <span class="text-pink-400">var</span> focus = <span
+              class="text-green-700">"social and vr"</span
+            >;
+          </p>
+          <p>
+            <span class="text-pink-400">var</span> status = <span
+              class="text-green-700">"creating"</span
+            >;
+          </p>
+        </div>
+      </ProfileSidebar>
+
+      <div class="flex-1 space-y-16">
+        <!-- プロフィールセクション -->
+        <section
+          class="my-20 flex items-center justify-center particle-container relative"
+        >
+          <ParticleEffect>
+            <div class="flex flex-col items-center gap-4 relative z-1">
+              <!-- アイコン画像 -->
+              <img
+                src="/images/icon.png"
+                alt="アイコン"
+                class="w-50 h-50 rounded-full"
+              />
+              <!-- 名前と自己紹介 -->
+              <h1 class="text-4xl font-bold">nirila</h1>
+              <p>にりら</p>
+              <div>
+                <p class="text-base-content/70">engineer, creator</p>
+              </div>
+              <ul class="flex gap-4">
+                {
+                  SOCIAL_LINKS.map((link) => (
+                    <li>
+                      <a
+                        href={link.url}
+                        class="text-primary hover:text-primary/80"
+                      >
+                        {link.label ? (
+                          link.label
+                        ) : (
+                          <Icon name={`mdi:${link.id}`} class="w-6 h-6" />
+                        )}
+                      </a>
+                    </li>
+                  ))
+                }
+              </ul>
+            </div>
+          </ParticleEffect>
+        </section>
+        <Archive works={works} limit={5} />
+
+        <!-- blogs -->
+        <section>
+          <div class="flex justify-between items-center mb-6">
+            <h2 class="text-2xl font-bold">Blog</h2>
+            <a href="/blog" class="text-primary text-sm hover:underline">
+              すべて見る →
+            </a>
+          </div>
+
+          <div
+            class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4"
+          >
+            {
+              displayBlogs.map((post) => (
+                <CardSquare
+                  title={post.data.title}
+                  href={`/blog/${post.id.replace(/\.md$/, "")}`}
+                  pubDate={post.data.pubDate}
+                  emoji={post.data.emoji}
+                  image={post.data.image}
+                  tags={post.data.tags}
+                />
+              ))
+            }
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+</BaseLayout>

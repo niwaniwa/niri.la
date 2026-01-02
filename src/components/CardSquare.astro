@@ -1,0 +1,54 @@
+---
+interface Props {
+  title: string;
+  href: string;
+  pubDate: Date;
+  emoji?: string;
+  image?: string;
+  tags?: string[];
+}
+
+const { title, href, pubDate, emoji, image, tags } = Astro.props;
+---
+
+<a href={href} class="block group">
+  {/* 画像/絵文字エリア */}
+  <div class="aspect-square rounded-lg overflow-hidden bg-base-200">
+    {
+      image ? (
+        <img
+          src={image}
+          alt=""
+          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+        />
+      ) : emoji ? (
+        <div class="w-full h-full flex items-center justify-center text-5xl group-hover:scale-110 transition-transform duration-300">
+          {emoji}
+        </div>
+      ) : (
+        <div class="w-full h-full flex items-center justify-center text-base-content/30">
+          📝
+        </div>
+      )
+    }
+  </div>
+
+  {/* タイトル・タグ・日付エリア */}
+  <div class="mt-2 space-y-1">
+    <h3
+      class="font-medium text-sm line-clamp-2 group-hover:text-primary transition-colors"
+    >
+      {title}
+    </h3>
+    {
+      tags && tags.length > 0 && (
+        <p class="text-xs text-base-content/50 truncate">
+          {tags.map((tag) => `#${tag}`).join(" ")}
+        </p>
+      )
+    }
+    <time class="text-xs text-base-content/40 block">
+      {pubDate.toLocaleDateString("ja-JP")}
+    </time>
+  </div>
+</a>
