@@ -2,6 +2,15 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
+<script src="/pagefind/pagefind-ui.js" is:inline></script>
+<script is:inline>
+  window.addEventListener("DOMContentLoaded", () => {
+    new PagefindUI({ element: "#search", showSubResults: true });
+  });
+</script>
+
+<link href="/pagefind/pagefind-ui.css" rel="stylesheet" />
+
 <BaseLayout title="検索 | niri.la">
   <main class="max-w-4xl mx-auto px-4 py-12">
     <h1 class="text-3xl font-bold mb-8">検索</h1>
@@ -17,11 +26,3 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     --pagefind-ui-border: var(--base-300);
   }
 </style>
-
-<link href="/pagefind/pagefind-ui.css" rel="stylesheet" />
-<script src="/pagefind/pagefind-ui.js" is:inline></script>
-<script is:inline>
-  window.addEventListener("DOMContentLoaded", () => {
-    new PagefindUI({ element: "#search", showSubResults: true });
-  });
-</script>

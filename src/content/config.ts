@@ -9,6 +9,8 @@ const blogCollection = defineCollection({
     updateDate: z.date().optional(),
     tags: z.array(z.string()).optional(),
     draft: z.boolean().default(false),
+    emoji: z.string().optional(),
+    image: z.string().optional(),
   }),
 });
 
@@ -22,6 +24,8 @@ const worksCollection = defineCollection({
     updateDate: z.date().optional(),
     tags: z.array(z.string()).optional(),
     draft: z.boolean().default(false),
+    emoji: z.string().optional(),
+    image: z.string().optional(),
   }),
 });
 
