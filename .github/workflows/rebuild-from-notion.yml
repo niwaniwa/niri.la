@@ -1,0 +1,26 @@
+name: Rebuild blog from Notion
+
+on:
+  workflow_dispatch:
+
+# This workflow only asks Pages to start a build. It does not wait for publication.
+permissions: {}
+
+jobs:
+  request-pages-build:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Trigger Cloudflare Pages build
+        env:
+          PAGES_DEPLOY_HOOK_URL: ${{ secrets.PAGES_DEPLOY_HOOK_URL }}
+        run: |
+          if [ -z "$PAGES_DEPLOY_HOOK_URL" ]; then
+            echo "PAGES_DEPLOY_HOOK_URL is not configured." >&2
+            exit 1
+          fi
+
+          curl --fail --silent --show-error --request POST \
+            --max-time 30 --output /dev/null "$PAGES_DEPLOY_HOOK_URL"
+          echo "Cloudflare Pages build requested. Check Pages for the deployment result."

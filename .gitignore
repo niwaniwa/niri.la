@@ -16,6 +16,12 @@ pnpm-debug.log*
 # environment variables
 .env
 .env.production
+.env.local
+
+# generated from Notion during builds
+src/content/blogs/notion--*.md
+src/content/blogs/.notion-snapshot.json
+public/notion-images/
 
 # macOS-specific files
 .DS_Store

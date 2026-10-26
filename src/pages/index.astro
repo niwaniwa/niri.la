@@ -4,6 +4,7 @@ import Archive from "../components/Archive.astro";
 import CardSquare from "../components/CardSquare.astro";
 import { Icon } from "astro-icon/components";
 import { getCollection } from "astro:content";
+import { blogSlug } from "../blogSlug";
 import ProfileSidebar from "../components/ProfileSidebar.astro";
 import { SITE, SOCIAL_LINKS } from "../config";
 import ParticleEffect from "../components/ParticleEffect.astro";
@@ -95,7 +96,7 @@ const displayBlogs = blogs.slice(0, 10);
               displayBlogs.map((post) => (
                 <CardSquare
                   title={post.data.title}
-                  href={`/blog/${post.id.replace(/\.md$/, "")}`}
+                  href={`/blog/${blogSlug(post)}`}
                   pubDate={post.data.pubDate}
                   emoji={post.data.emoji}
                   image={post.data.image}

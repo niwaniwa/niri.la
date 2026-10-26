@@ -1,12 +1,13 @@
 import rss from "@astrojs/rss";
 import { getCollection } from "astro:content";
+import { blogSlug } from "../../blogSlug";
 
 export async function GET(context) {
   const posts = await getCollection("blogs", ({ data }) => !data.draft);
 
   return rss({
     // `<title>` field in output xml
-    title: 'niri.la Blog"',
+    title: "niri.la Blog",
     // `<description>` field in output xml
     description: "nirilaのブログ",
     // Pull in your project "site" from the endpoint context
@@ -20,7 +21,7 @@ export async function GET(context) {
         title: post.data.title,
         pubDate: post.data.pubDate,
         description: post.data.description,
-        link: `/blogs/${post.id.replace(/\.md$/, "")}/`,
+        link: `/blog/${blogSlug(post)}/`,
       }))
       .slice(0, 20),
     // (optional) inject custom xml

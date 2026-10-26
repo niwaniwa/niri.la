@@ -4,7 +4,9 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "node scripts/notion-sync.mjs && astro build && node scripts/notion-verify.mjs",
+    "build:astro": "astro build",
+    "test:notion": "node --test tests/notion-sync.test.mjs",
     "preview": "astro preview",
     "astro": "astro"
   },
@@ -22,8 +24,10 @@
     "rehype-accessible-emojis": "^0.3.2",
     "rehype-katex": "^7.0.1",
     "remark-math": "^6.0.0",
+    "remark-parse": "^11.0.0",
     "remark-toc": "^9.0.0",
-    "tailwindcss": "^4.1.18"
+    "tailwindcss": "^4.1.18",
+    "unified": "^11.0.5"
   },
   "devDependencies": {
     "prettier": "3.7.4",

@@ -34,6 +34,11 @@ All commands are run from the root of the project, from a terminal:
 - [ ] OGPの自動生成
 - [ ] リファクタ
 
+## 設計資料
+
+- [Notion からブログを公開する処理の設計](docs/notion-blog-publishing-design.md)
+- [Notion 連携 PoC の設定と確認方法](docs/notion-blog-poc.md)
+
 ## refarence
 
 - テーマのtoggleについて以下のサイトを参考にさせていただきました🙇

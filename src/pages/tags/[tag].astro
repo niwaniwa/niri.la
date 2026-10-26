@@ -2,6 +2,7 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import BlogCard from "../../components/BlogCard.astro";
 import { getCollection } from "astro:content";
+import { blogSlug } from "../../blogSlug";
 
 // 動的ルートのための関数
 export async function getStaticPaths() {
@@ -39,7 +40,7 @@ const sortedPosts = posts.sort(
             title={post.data.title}
             description={post.data.description}
             pubDate={post.data.pubDate}
-            href={`/blog/${post.id.replace(/\.md$/, "")}`}
+            href={`/blog/${blogSlug(post)}`}
             tags={post.data.tags}
             emoji={post.data.emoji}
             image={post.data.image}
